@@ -1,4 +1,5 @@
 from hlt.corpus.reader import *
+from hlt import Essay, LEssay, Annotation
 
 spacedFileIDToPromptID = dict()
 with open('/users/hazen/spac-cat.txt', 'r') as f:
