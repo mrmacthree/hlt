@@ -24,18 +24,18 @@ with open('/users/hazen/AnnR-cat.txt', 'r') as f:
         AnnRFileIDToPromptID[s[0]].append(s[1])
 f.close()
 
-icle = ICLECorpusReader('/shared/mlrdir1/disk1/mlr/corpora/ICLE/spaced', r'.*\.spaced', 
-    cat_map=spacedFileIDToPromptID,
-    para_block_reader=read_whole_essay_block)
+# icle = ICLECorpusReader('/shared/mlrdir1/disk1/mlr/corpora/ICLE/spaced', r'.*\.spaced', 
+#     cat_map=spacedFileIDToPromptID,
+#     para_block_reader=read_whole_essay_block)
 
-lemm = ICLECorpusReader('/shared/mlrdir1/disk1/mlr/corpora/ICLE/lemmatized', r'.*\.lemmatized', 
-    cat_map=lemmatizedFileIDToPromptID,
-    para_block_reader=read_whole_lessay_block,
-    element_class=LEssay)
+# lemm = ICLECorpusReader('/shared/mlrdir1/disk1/mlr/corpora/ICLE/lemmatized', r'.*\.lemmatized', 
+#     cat_map=lemmatizedFileIDToPromptID,
+#     para_block_reader=read_whole_lessay_block,
+#     element_class=LEssay)
 
-ann = PromptAgreementAnnotationsCorpusReader('/shared/mlrdir1/disk1/mlr/corpora/ICLE/ThesisAgreement/AnnR', r'.*\.promptagg', 
-    cat_map=AnnRFileIDToPromptID,                                  
-    para_block_reader=read_whole_annotation_block)
+# ann = PromptAgreementAnnotationsCorpusReader('/shared/mlrdir1/disk1/mlr/corpora/ICLE/ThesisAgreement/AnnR', r'.*\.promptagg', 
+#     cat_map=AnnRFileIDToPromptID,                                  
+#     para_block_reader=read_whole_annotation_block)
 
 
-pa = PromptAgreementDataset(icle, lemm, ann, None)
+# pa = PromptAgreementDataset(icle, lemm, ann, None)
