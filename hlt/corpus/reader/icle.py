@@ -1,106 +1,28 @@
-def read_noskipblank_block(stream):
-	s = ''
-	while True:
-		line = stream.readline()
-		# End of file:
-		if not line:
-			if s: return [s]
-			else: return []
-		# Blank line:
-		elif line and not line.strip():
-			if s: return [s]
-			else: s += 'empty_line'
-		# Other line:
-		else:
-			s += line
-
 class ICLECorpusReader(CategorizedPlaintextCorpusReader):
 
-	def __init__(self, *args, **kwargs):
-		CategorizedPlaintextCorpusReader.__init__(self, *args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        if 'element_class' in kwargs:
+            self.element_class = kwargs['element_class']
+            del kwargs['element_class']
+        else:
+            self.element_class = Essay
+        CategorizedPlaintextCorpusReader.__init__(self, *args, **kwargs)
+        
+    def _read_essay_block_wrapper(self, path):
+        paras = [path]
+        def _read_essay_block(stream):
+            r = self._para_block_reader(stream)
+            for para in r:
+                paras.append(para)
+                #paras.append([self._word_tokenizer.tokenize(sent) for sent in self._sent_tokenizer.tokenize(para)])
+            return [self.element_class(paras)]
+        return _read_essay_block
+    
+    def essays(self, fileids=None, categories=None):
+        files = self._resolve(fileids, categories)
+        if self._sent_tokenizer is None:
+            raise ValueError('No sentence tokenizer for this corpus')
 
-	def prompt_paras(self, fileids=None, categories=None):
-		paragraphs = self.paras(fileids, categories)
-		prev_para = ''
-		for para in paragraphs:
-			if para[0][0] == '<':
-				yield prev_para
-			prev_para = para
-
-	def prompt_sents(self, fileids=None, categories=None):
-		paragraphs = self.prompt_paras(fileids, categories)
-		for para in paragraphs:
-			for sent in para:
-				yield sent
-
-	def prompt_words(self, fileids=None, categories=None):
-		sentences = self.prompt_sents(fileids, categories)
-		for sent in sentences:
-			for word in sent:
-				yield word
-
-	def essay_paras(self, fileids=None, categories=None):
-		paragraphs = self.paras(fileids, categories)
-		prev_para = [['']]
-		for para in paragraphs:
-			if para[0][0] != '<' and prev_para[0][0] != '<':
-				yield prev_para
-			prev_para = para
-
-	def essay_sents(self, fileids=None, categories=None):
-		paragraphs = self.essay_paras(fileids, categories)
-		for para in paragraphs:
-			for sent in para:
-				yield sent
-
-	def essay_words(self, fileids=None, categories=None):
-		sentences = self.essay_sents(fileids, categories)
-		for sent in sentences:
-			for word in sent:
-				yield word
-
-class ICLELemmatizedCorpusReader(CategorizedPlaintextCorpusReader):
-
-	def __init__(self, *args, **kwargs):
-		CategorizedPlaintextCorpusReader.__init__(self, *args, **kwargs)
-
-	def prompt_paras(self, fileids=None, categories=None):
-		paragraphs = self.paras(fileids, categories)
-		prev_para = ''
-		for para in paragraphs:
-			if para[0][0] == 'empty_line':
-				yield prev_para
-			prev_para = para
-
-	def prompt_sents(self, fileids=None, categories=None):
-		paragraphs = self.prompt_paras(fileids, categories)
-		for para in paragraphs:
-			for sent in para:
-				yield sent
-
-	def prompt_words(self, fileids=None, categories=None):
-		sentences = self.prompt_sents(fileids, categories)
-		for sent in sentences:
-			for word in sent:
-				yield word
-
-	def essay_paras(self, fileids=None, categories=None):
-		paragraphs = self.paras(fileids, categories)
-		prev_para = [['']]
-		for para in paragraphs:
-			if para[0][0] != 'empty_line' and prev_para[0][0] != 'empty_line':
-				yield prev_para
-			prev_para = para
-
-	def essay_sents(self, fileids=None, categories=None):
-		paragraphs = self.essay_paras(fileids, categories)
-		for para in paragraphs:
-			for sent in para:
-				yield sent
-
-	def essay_words(self, fileids=None, categories=None):
-		sentences = self.essay_sents(fileids, categories)
-		for sent in sentences:
-			for word in sent:
-				yield word
+        return concat([self.CorpusView(path, self._read_essay_block_wrapper(re.search(r".*(spaced|lemmatized)/(.*)",path.path).group(2)), encoding=enc)
+                        for (path, enc, files) in self.abspaths(files, True, True)])
 
