@@ -31,7 +31,7 @@ class PromptAgreementAnnotationsCorpusReader(CategorizedPlaintextCorpusReader):
             if self._f2c is None:
                 self._init()
 
-            paras.append(self._f2c[paras[0]])
+            paras.append(self._f2c[paras[0]].pop())
             return [Annotation(paras)]
 
         return _read_annotation_block
