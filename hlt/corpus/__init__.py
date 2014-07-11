@@ -1,7 +1,7 @@
-
+from hlt.corpus.reader import *
 
 spacedFileIDToPromptID = dict()
-with open('spac-cat.txt', 'r') as f:
+with open('~/spac-cat.txt', 'r') as f:
     for line in f:
         s = line.split()
         spacedFileIDToPromptID[s[0]] = list()
@@ -9,7 +9,7 @@ with open('spac-cat.txt', 'r') as f:
 f.close()
 
 lemmatizedFileIDToPromptID = dict()
-with open('lem-cat.txt', 'r') as f:
+with open('~/lem-cat.txt', 'r') as f:
     for line in f:
         s = line.split()
         lemmatizedFileIDToPromptID[s[0]] = list()
@@ -17,7 +17,7 @@ with open('lem-cat.txt', 'r') as f:
 f.close()
 
 AnnRFileIDToPromptID = dict()
-with open('AnnR-cat.txt', 'r') as f:
+with open('~/AnnR-cat.txt', 'r') as f:
     for line in f:
         s = line.split()
         AnnRFileIDToPromptID[s[0]] = list()
