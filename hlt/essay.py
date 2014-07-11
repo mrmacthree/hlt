@@ -18,7 +18,7 @@ class LEssay(object):
         self.fileID = essay[0]
         self.prompt = essay[1]
         self.response = essay[2]
-        self.promptID = essay[4]
+        self.promptID = essay[3]
         
     def __repr__(self):
         if len(self.response) < 250:
