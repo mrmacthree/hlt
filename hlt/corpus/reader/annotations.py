@@ -1,4 +1,5 @@
 from nltk.corpus.reader import CategorizedPlaintextCorpusReader
+from hlt import Annotation
 import re
 
 class PromptAgreementAnnotationsCorpusReader(CategorizedPlaintextCorpusReader):
