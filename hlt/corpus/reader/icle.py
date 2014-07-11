@@ -1,3 +1,6 @@
+from nltk.corpus.reader import CategorizedPlaintextCorpusReader
+import re
+
 class ICLECorpusReader(CategorizedPlaintextCorpusReader):
 
     def __init__(self, *args, **kwargs):

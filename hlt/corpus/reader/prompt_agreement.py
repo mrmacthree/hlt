@@ -1,3 +1,6 @@
+from hlt.corpus.reader import CategorizedPlaintextCorpusReader, PromptAgreementAnnotationsCorpusReader
+import re
+
 class PromptAgreementDataset(object):
     def __init__(self, icle_corpus, lemmatized_corpus, prompt_agreement_annotations_corpus, prompt=None):
         self.icle = icle_corpus

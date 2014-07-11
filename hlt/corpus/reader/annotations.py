@@ -1,3 +1,6 @@
+from nltk.corpus.reader import CategorizedPlaintextCorpusReader
+import re
+
 class PromptAgreementAnnotationsCorpusReader(CategorizedPlaintextCorpusReader):
     def __init__(self, *args, **kwargs):
         self.annotation_word_tokenizer = RegexpTokenizer(r'(Agree|Disagree) Strongly|(Agree|Disagree) Somewhat|Never Addressed|No Opinion|[AC]-\w+|\d+-\d+|\w+|[^\w\s]+')
