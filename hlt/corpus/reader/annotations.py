@@ -27,7 +27,12 @@ class PromptAgreementAnnotationsCorpusReader(CategorizedPlaintextCorpusReader):
                 for sent in subann[1:]:
                     l.append(self.annotation_word_tokenizer.tokenize(sent))
                 paras.append(l)
-            return [Annotation(paras)]
+
+            if self._f2c is None:
+                self._init()
+
+            return [Annotation(paras.append(self._f2c[paras[0]]))]
+            
         return _read_annotation_block
     
     def annotations(self, fileids=None, categories=None):

@@ -20,7 +20,10 @@ class ICLECorpusReader(CategorizedPlaintextCorpusReader):
             for para in r:
                 paras.append(para)
                 #paras.append([self._word_tokenizer.tokenize(sent) for sent in self._sent_tokenizer.tokenize(para)])
-            return [self.element_class(paras)]
+
+            if self._f2c is None:
+                self._init()
+            return [self.element_class(paras.append(self._f2c[paras[0]]))]
         return _read_essay_block
     
     def essays(self, fileids=None, categories=None):

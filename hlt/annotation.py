@@ -71,8 +71,8 @@ class Annotation(object):
         self.fileID = annotation[0]
         #print self.fileID
         self.prompt = annotation[1]
-        self.annotations = [SubAnnotation(x) for x in annotation[2:]]
-        self.promptID = fileIDToPromptID[self.fileID]
+        self.annotations = [SubAnnotation(x) for x in annotation[2:-1]]
+        self.promptID = annotation[-1]
         self.essay = None
         
     def __repr__(self):
