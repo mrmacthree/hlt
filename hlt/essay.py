@@ -1,5 +1,6 @@
 class Essay(object):
     def __init__(self, essay):
+        print essay
         self.fileID = essay[0]
         self.prompt = essay[1]
         self.essayID = essay[2]
