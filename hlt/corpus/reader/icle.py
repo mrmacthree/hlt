@@ -1,4 +1,5 @@
 from nltk.corpus.reader import CategorizedPlaintextCorpusReader
+from nltk.corpus.reader.util import *
 from hlt import Essay
 import re
 
