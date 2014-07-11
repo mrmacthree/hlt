@@ -23,7 +23,8 @@ class ICLECorpusReader(CategorizedPlaintextCorpusReader):
 
             if self._f2c is None:
                 self._init()
-            return [self.element_class(paras.append(self._f2c[paras[0]]))]
+            paras.append(self._f2c[paras[0]])
+            return [self.element_class(paras)]
         return _read_essay_block
     
     def essays(self, fileids=None, categories=None):
