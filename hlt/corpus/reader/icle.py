@@ -28,6 +28,8 @@ class ICLECorpusReader(CategorizedPlaintextCorpusReader):
         return _read_essay_block
     
     def essays(self, fileids=None, categories=None):
+        if fileids is None and categories is None:
+            categories = self.categories()
         files = self._resolve(fileids, categories)
         if self._sent_tokenizer is None:
             raise ValueError('No sentence tokenizer for this corpus')
