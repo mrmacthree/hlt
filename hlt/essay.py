@@ -9,6 +9,7 @@ class Essay(object):
         self.response = essay[3]
         self.promptID = essay[4]
         self.lemmatized = None
+        self.annotation = None
 
     def sentences(self, lowercase=False, strip_punct=[], num_placeholder=None):
         word_tokenizer=TreebankWordTokenizer()

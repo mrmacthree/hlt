@@ -7,7 +7,29 @@ class Confidence:
     High, Medium, Low, None_ = range(4)
     
 class Reasons:
-    names = ['C-BrieflyDiscussed', 'C-ConflictingOpinions', 'C-ConfusinglyPhrased', 'C-NeverAddressed', 'C-PartialResponse', 'C-Relevance', 'C-SubtlerPoint', 'C-WriterPosition', 'C-Other', 'A-ConflictingOpinions', 'A-ExplicitlyStated', 'A-NoOpinion', 'A-PartialResponse', 'A-SubtlerPoint', 'A-WriterPosition', 'A-Other'] 
+    names = ['C-BrieflyDiscussed', 'C-ConflictingOpinions', 'C-ConfusinglyPhrased', 
+             'C-NeverAddressed', 'C-PartialResponse', 'C-Relevance', 
+             'C-SubtlerPoint', 'C-WriterPosition', 'C-Other', 
+             'A-ConflictingOpinions', 'A-ExplicitlyStated', 'A-NoOpinion', 
+             'A-PartialResponse', 'A-SubtlerPoint', 'A-WriterPosition', 
+             'A-Other'] 
+             
+    names_combined = ['ConfusinglyPhrased', 'PartialResponse', 'WriterPosition', 
+                      'NeverAddressed', 'NoOpinion', 'ExplicitlyStated', 
+                      'BrieflyDiscussed', 'Other', 'ConflictingOpinions', 
+                      'Relevance', 'SubtlerPoint']
+    
+    all_used_labels =  ['ConfusinglyPhrased', 'PartialResponse', 'WriterPosition', 
+                        'ExplicitlyStated', 'BrieflyDiscussed', 'ConflictingOpinions', 
+                        'Relevance', 'SubtlerPoint']
+
+    thesis_labels = ['ConfusinglyPhrased','ExplicitlyStated', 'WriterPosition', 
+                     'ConflictingOpinions', 'PartialResponse', 'SubtlerPoint', 
+                     'Relevance']
+
+    overall_labels = ['BrieflyDiscussed', 'WriterPosition', 'ConflictingOpinions', 
+                      'PartialResponse', 'SubtlerPoint', 'Relevance']
+
     Null = -1
     C_BrieflyDiscussed, C_ConflictingOpinions, C_ConfusinglyPhrased, C_NeverAddressed, C_PartialResponse, C_Relevance, C_SubtlerPoint, C_WriterPosition, C_Other, A_ConflictingOpinions, A_ExplicitlyStated, A_NoOpinion, A_PartialResponse, A_SubtlerPoint, A_WriterPosition, A_Other = range(16)
     
@@ -73,7 +95,6 @@ class Annotation(object):
         self.prompt = annotation[1]
         self.annotations = [SubAnnotation(x) for x in annotation[2:-1]]
         self.promptID = annotation[-1]
-        self.essay = None
         
     def __repr__(self):
         return "Annotation(" + self.fileID + ", " + self.promptID + ")"

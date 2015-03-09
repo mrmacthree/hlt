@@ -23,13 +23,15 @@ class ICLECorpusReader(CategorizedPlaintextCorpusReader):
 
             if self._f2c is None:
                 self._init()
-            paras.append(list(self._f2c[paras[0]])[0])
+
+            if paras[0] in self._f2c:
+                paras.append(list(self._f2c[paras[0]])[0])
+            else:
+                paras.append('unknown')
             return [self.element_class(paras)]
         return _read_essay_block
     
     def essays(self, fileids=None, categories=None):
-        if fileids is None and categories is None:
-            categories = self.categories()
         files = self._resolve(fileids, categories)
         if self._sent_tokenizer is None:
             raise ValueError('No sentence tokenizer for this corpus')
